@@ -81,7 +81,6 @@ namespace TCC_API.Controllers
             _dbContext.SaveChanges();
 
             return Ok();
-            
         }
 
         // DELETE api/<UserController>/5
@@ -117,7 +116,7 @@ namespace TCC_API.Controllers
             return Ok(new
             {
                 Token = tokenString
-            });            
+            });
         }
     }
 }
