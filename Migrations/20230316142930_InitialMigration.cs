@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace TCC_API.Migrations
 {
-    public partial class InitialDbMigration : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -198,6 +198,53 @@ namespace TCC_API.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Cidades",
+                columns: new[] { "Id", "DataCriacao", "DataEdicao", "Estado", "Nome" },
+                values: new object[,]
+                {
+                    { 1L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6135), null, "CE", "Fortaleza" },
+                    { 2L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6142), null, "CE", "Aracati" },
+                    { 3L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6143), null, "CE", "Aquiraz" },
+                    { 4L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6145), null, "CE", "Acaraú" },
+                    { 5L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6146), null, "CE", "Viçosa do Ceará" },
+                    { 6L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6147), null, "CE", "Antonina do Norte" },
+                    { 7L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6148), null, "CE", "Abaiara" },
+                    { 8L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6149), null, "CE", "Acarape" },
+                    { 9L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6150), null, "CE", "Sobral" },
+                    { 10L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6151), null, "CE", "Crato" },
+                    { 11L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6152), null, "CE", "Juazeiro do Norte" },
+                    { 12L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6153), null, "CE", "Itapipoca" },
+                    { 13L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6154), null, "CE", "Canindé" },
+                    { 14L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6155), null, "CE", "Massapê" },
+                    { 15L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6156), null, "CE", "Martinópole" },
+                    { 16L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6157), null, "CE", "Granja" },
+                    { 17L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6158), null, "CE", "Uruoca" },
+                    { 18L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6158), null, "CE", "Senador Sá" },
+                    { 19L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6159), null, "CE", "Tianguá" },
+                    { 20L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6160), null, "CE", "Frecheirinha" },
+                    { 21L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6161), null, "CE", "São Benedito" },
+                    { 22L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6162), null, "CE", "Jijoca" },
+                    { 23L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6163), null, "CE", "Cruz" },
+                    { 24L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6164), null, "CE", "Meruoca" },
+                    { 25L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6165), null, "CE", "Camocim" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "DataCriacao", "DataEdicao", "Email", "Senha", "Username" },
+                values: new object[] { 1L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6272), null, "abraaocrl@email.com.br", "827CCB0EEA8A706C4C34A16891F84E7B", "abraaocrl" });
+
+            migrationBuilder.InsertData(
+                table: "Motoristas",
+                columns: new[] { "Id", "DataCriacao", "DataEdicao", "DataNascimento", "Documento", "IdUsuario", "Nome" },
+                values: new object[] { 1L, new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6284), null, new DateTime(1998, 11, 27, 0, 0, 0, 0, DateTimeKind.Utc), "123.123.123-12", 1L, "Abraão Costa" });
+
+            migrationBuilder.InsertData(
+                table: "Carros",
+                columns: new[] { "Id", "DataCriacao", "DataEdicao", "IdMotorista", "Passageiros", "Placa" },
+                values: new object[] { 1L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, 1L, 10, "HWI8828" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Carros_IdMotorista",

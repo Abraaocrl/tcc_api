@@ -12,8 +12,8 @@ using TCC_API.Models.Database;
 namespace TCC_API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230315201647_InitialDbMigration")]
-    partial class InitialDbMigration
+    [Migration("20230316142930_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,6 +53,16 @@ namespace TCC_API.Migrations
                     b.HasIndex("IdMotorista");
 
                     b.ToTable("Carros");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IdMotorista = 1L,
+                            Passageiros = 10,
+                            Placa = "HWI8828"
+                        });
                 });
 
             modelBuilder.Entity("TCC_API.Models.Database.Cidade", b =>
@@ -80,6 +90,183 @@ namespace TCC_API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Cidades");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6135),
+                            Estado = "CE",
+                            Nome = "Fortaleza"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6142),
+                            Estado = "CE",
+                            Nome = "Aracati"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6143),
+                            Estado = "CE",
+                            Nome = "Aquiraz"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6145),
+                            Estado = "CE",
+                            Nome = "Acaraú"
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6146),
+                            Estado = "CE",
+                            Nome = "Viçosa do Ceará"
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6147),
+                            Estado = "CE",
+                            Nome = "Antonina do Norte"
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6148),
+                            Estado = "CE",
+                            Nome = "Abaiara"
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6149),
+                            Estado = "CE",
+                            Nome = "Acarape"
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6150),
+                            Estado = "CE",
+                            Nome = "Sobral"
+                        },
+                        new
+                        {
+                            Id = 10L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6151),
+                            Estado = "CE",
+                            Nome = "Crato"
+                        },
+                        new
+                        {
+                            Id = 11L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6152),
+                            Estado = "CE",
+                            Nome = "Juazeiro do Norte"
+                        },
+                        new
+                        {
+                            Id = 12L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6153),
+                            Estado = "CE",
+                            Nome = "Itapipoca"
+                        },
+                        new
+                        {
+                            Id = 13L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6154),
+                            Estado = "CE",
+                            Nome = "Canindé"
+                        },
+                        new
+                        {
+                            Id = 14L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6155),
+                            Estado = "CE",
+                            Nome = "Massapê"
+                        },
+                        new
+                        {
+                            Id = 15L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6156),
+                            Estado = "CE",
+                            Nome = "Martinópole"
+                        },
+                        new
+                        {
+                            Id = 16L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6157),
+                            Estado = "CE",
+                            Nome = "Granja"
+                        },
+                        new
+                        {
+                            Id = 17L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6158),
+                            Estado = "CE",
+                            Nome = "Uruoca"
+                        },
+                        new
+                        {
+                            Id = 18L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6158),
+                            Estado = "CE",
+                            Nome = "Senador Sá"
+                        },
+                        new
+                        {
+                            Id = 19L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6159),
+                            Estado = "CE",
+                            Nome = "Tianguá"
+                        },
+                        new
+                        {
+                            Id = 20L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6160),
+                            Estado = "CE",
+                            Nome = "Frecheirinha"
+                        },
+                        new
+                        {
+                            Id = 21L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6161),
+                            Estado = "CE",
+                            Nome = "São Benedito"
+                        },
+                        new
+                        {
+                            Id = 22L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6162),
+                            Estado = "CE",
+                            Nome = "Jijoca"
+                        },
+                        new
+                        {
+                            Id = 23L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6163),
+                            Estado = "CE",
+                            Nome = "Cruz"
+                        },
+                        new
+                        {
+                            Id = 24L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6164),
+                            Estado = "CE",
+                            Nome = "Meruoca"
+                        },
+                        new
+                        {
+                            Id = 25L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6165),
+                            Estado = "CE",
+                            Nome = "Camocim"
+                        });
                 });
 
             modelBuilder.Entity("TCC_API.Models.Database.Motorista", b =>
@@ -115,6 +302,17 @@ namespace TCC_API.Migrations
                     b.HasIndex("IdUsuario");
 
                     b.ToTable("Motoristas");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6284),
+                            DataNascimento = new DateTime(1998, 11, 27, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Documento = "123.123.123-12",
+                            IdUsuario = 1L,
+                            Nome = "Abraão Costa"
+                        });
                 });
 
             modelBuilder.Entity("TCC_API.Models.Database.Rota", b =>
@@ -275,6 +473,16 @@ namespace TCC_API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            DataCriacao = new DateTime(2023, 3, 16, 11, 29, 30, 470, DateTimeKind.Utc).AddTicks(6272),
+                            Email = "abraaocrl@email.com.br",
+                            Senha = "827CCB0EEA8A706C4C34A16891F84E7B",
+                            Username = "abraaocrl"
+                        });
                 });
 
             modelBuilder.Entity("TCC_API.Models.Database.Carro", b =>
