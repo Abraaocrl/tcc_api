@@ -47,7 +47,7 @@ namespace TCC_API.Models.Database
                 );
 
             builder.Entity<User>().HasData(
-                new User() { Id = 1, Email = "abraaocrl@email.com.br", Username = "abraaocrl", Senha = "827CCB0EEA8A706C4C34A16891F84E7B", DataCriacao = DateTime.Now }
+                new User() { Nome = "Abraão", Sobrenome = "Costa", Id = 1, Email = "abraaocrl@email.com.br", Username = "abraaocrl", Senha = "827CCB0EEA8A706C4C34A16891F84E7B", DataCriacao = DateTime.Now }
                 );
 
             builder.Entity<Motorista>().HasData(

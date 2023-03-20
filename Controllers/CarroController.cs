@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TCC_API.Models.Database;
 using TCC_API.Models.Extensions;
 
@@ -22,7 +23,7 @@ namespace TCC_API.Controllers
         [HttpGet]
         public ActionResult Get()
         {
-            var carros = _dbContext.Carros.ToList();
+            var carros = _dbContext.Carros.Include(x => x.Motorista).ToList();
 
             return Ok(carros);
         }
@@ -42,7 +43,7 @@ namespace TCC_API.Controllers
         // POST api/<CarroController>
         [HttpPost]
         public ActionResult Post([FromBody] Carro carro)
-        {            
+        {
             var carroExistente = _dbContext.Carros.Where(x => x.Placa == carro.Placa).Any();
             if (carroExistente)
                 return BadRequest("Placa já existente.");

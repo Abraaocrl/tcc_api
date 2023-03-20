@@ -13,5 +13,11 @@ namespace TCC_API.Models.Database
 
         [Required]
         public string Senha { get; set; }
+
+        [Required]
+        public string Nome { get; set; }
+
+        [Required]
+        public string Sobrenome { get; set; }
     }
 }

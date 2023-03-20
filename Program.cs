@@ -49,6 +49,7 @@ builder.Services.AddAuthentication(opt => {
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
+        ClockSkew= TimeSpan.Zero,
         ValidIssuer = ConfigurationManager.AppSetting["JWT:ValidIssuer"],
         ValidAudience = ConfigurationManager.AppSetting["JWT:ValidAudience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(ConfigurationManager.AppSetting["JWT:Secret"]))
