@@ -50,7 +50,7 @@ namespace TCC_API.Migrations
 
                     b.HasIndex("IdMotorista");
 
-                    b.ToTable("Carros");
+                    b.ToTable("Carros", (string)null);
 
                     b.HasData(
                         new
@@ -87,7 +87,7 @@ namespace TCC_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cidades");
+                    b.ToTable("Cidades", (string)null);
 
                     b.HasData(
                         new
@@ -299,7 +299,7 @@ namespace TCC_API.Migrations
 
                     b.HasIndex("IdUsuario");
 
-                    b.ToTable("Motoristas");
+                    b.ToTable("Motoristas", (string)null);
 
                     b.HasData(
                         new
@@ -335,7 +335,7 @@ namespace TCC_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Rotas");
+                    b.ToTable("Rotas", (string)null);
                 });
 
             modelBuilder.Entity("TCC_API.Models.Database.RotaParada", b =>
@@ -375,7 +375,7 @@ namespace TCC_API.Migrations
 
                     b.HasIndex("IdRota");
 
-                    b.ToTable("RotaParadas");
+                    b.ToTable("RotaParadas", (string)null);
                 });
 
             modelBuilder.Entity("TCC_API.Models.Database.RotaParadaHorario", b =>
@@ -402,7 +402,7 @@ namespace TCC_API.Migrations
 
                     b.HasIndex("IdRotaParada");
 
-                    b.ToTable("RotaParadaHorarios");
+                    b.ToTable("RotaParadaHorarios", (string)null);
                 });
 
             modelBuilder.Entity("TCC_API.Models.Database.RotaPreco", b =>
@@ -439,7 +439,7 @@ namespace TCC_API.Migrations
 
                     b.HasIndex("IdRotaParadaOrigem");
 
-                    b.ToTable("RotaPrecos");
+                    b.ToTable("RotaPrecos", (string)null);
                 });
 
             modelBuilder.Entity("TCC_API.Models.Database.User", b =>
@@ -478,7 +478,7 @@ namespace TCC_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
 
                     b.HasData(
                         new

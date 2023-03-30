@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.Extensions.Hosting;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TCC_API.Models.Database
 {
@@ -20,7 +21,8 @@ namespace TCC_API.Models.Database
 
         [ForeignKey("Rota")]
         public long IdRota { get; set; }
-
         public Rota? Rota { get; set; }
+
+        public virtual ICollection<RotaParadaHorario> Horarios { get; set; }
     }
 }
