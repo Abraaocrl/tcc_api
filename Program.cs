@@ -4,11 +4,18 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using TCC_API.Cache;
 using TCC_API.Models.Database;
+using TCC_API.Repositories;
+using TCC_API.Repositories.Interfaces;
+using TCC_API.Services;
+using TCC_API.Services.Interfaces;
 using ConfigurationManager = TCC_API.ConfigurationManager;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddScoped<CarroRepository>();
+builder.Services.AddScoped<CarroService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

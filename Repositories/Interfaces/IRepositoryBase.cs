@@ -2,14 +2,14 @@
 {
     public interface IRepositoryBase<T> where T : Models.Database.BaseTable
     {
-        public List<T> Get();
+        public Task<List<T>> Get();
 
-        public T GetById(long id);
+        public Task<T> GetById(long id);
 
-        public T Create(T model);
+        public Task<T> Create(T model);
 
-        public T Update(T model);
+        public Task<T> Update(T model);
 
-        public bool Delete(long id);
+        public Task<bool> Delete(long id);
     }
 }

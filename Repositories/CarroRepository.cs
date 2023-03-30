@@ -13,17 +13,20 @@ namespace TCC_API.Repositories
             _dbContext = dbContext;
         }
 
-        public Carro Create(Carro model)
+        public async Task<Carro> Create(Carro model)
         {
+            model.DataCriacao = DateTime.Now;
+            model.DataEdicao = null;
+
             var resultado = _dbContext.Carros.Add(model).Entity;
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
 
             return resultado;
         }
 
-        public bool Delete(long id)
+        public async Task<bool> Delete(long id)
         {
-            var carro = _dbContext.Carros.FirstOrDefault(x => x.Id == id);
+            var carro = await this.GetById(id);
 
             if (carro == null)
                 return false;
@@ -34,14 +37,14 @@ namespace TCC_API.Repositories
             return true;
         }
 
-        public List<Carro> Get()
+        public async Task<List<Carro>> Get()
         {
-            return _dbContext.Carros.Include(x => x.Motorista).ToList();
+            return await _dbContext.Carros.Include(x => x.Motorista).ToListAsync();
         }
 
-        public Carro GetById(long id)
+        public async Task<Carro> GetById(long id)
         {
-            var carro = _dbContext.Carros.FirstOrDefault(x => x.Id == id, null);
+            var carro = await _dbContext.Carros.FirstOrDefaultAsync(x => x.Id == id);
 
             if (carro == null)
                 throw new Exception();
@@ -49,19 +52,26 @@ namespace TCC_API.Repositories
             return carro;
         }
 
-        public Carro Update(Carro model)
+        public async Task<Carro> GetByPlaca(string placa)
         {
-            var carroDb = _dbContext.Carros.FirstOrDefault(x => x.Id == model.Id);
+            var carro = await _dbContext.Carros.FirstOrDefaultAsync(x => x.Placa == placa);
 
-            if (carroDb == null)
+            if (carro == null)
                 throw new Exception();
+
+            return carro;
+        }
+
+        public async Task<Carro> Update(Carro model)
+        {
+            var carroDb = await this.GetById(model.Id);
 
             carroDb.Placa = model.Placa;
             carroDb.Passageiros = model.Passageiros;
             carroDb.IdMotorista = model.IdMotorista;
             carroDb.DataEdicao = DateTime.Now;
 
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
 
             return carroDb;
         }

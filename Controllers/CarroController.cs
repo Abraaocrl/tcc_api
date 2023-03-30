@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TCC_API.Models.Database;
 using TCC_API.Models.Extensions;
+using TCC_API.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,87 +13,89 @@ namespace TCC_API.Controllers
     [ApiController, Authorize]
     public class CarroController : ControllerBase
     {
-        private readonly AppDbContext _dbContext;
+        private readonly CarroService _service;
 
-        public CarroController(AppDbContext dbContext)
+        public CarroController(CarroService service)
         {
-            _dbContext = dbContext;
+            _service = service;
         }
 
         // GET: api/<CarroController>
         [HttpGet]
-        public ActionResult Get()
+        public async Task<ActionResult> Get()
         {
-            var carros = _dbContext.Carros.Include(x => x.Motorista).ToList();
+            var carros = await _service.Get();
 
             return Ok(carros);
         }
 
         // GET api/<CarroController>/5
         [HttpGet("{id}")]
-        public ActionResult Get(long id)
+        public async Task<ActionResult> Get(long id)
         {
-            var carro = _dbContext.Carros.FirstOrDefault(x => x.Id == id, null);
+            try
+            {
+                var carro = await _service.GetById(id);
 
-            if (carro == null)
-                return NotFound();
-
-            return Ok(carro);
+                return Ok(carro);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         // POST api/<CarroController>
         [HttpPost]
-        public ActionResult Post([FromBody] Carro carro)
+        public async Task<ActionResult> Post([FromBody] Carro carro)
         {
-            var carroExistente = _dbContext.Carros.Where(x => x.Placa == carro.Placa).Any();
-            if (carroExistente)
-                return BadRequest("Placa já existente.");
+            try
+            {
+                var carroCriado = await _service.Create(carro);
 
-            carro.DataCriacao = DateTime.Now;
-            carro.DataEdicao = null;
-
-            var resultado = _dbContext.Carros.Add(carro).Entity;
-            _dbContext.SaveChanges();
-
-            return Ok(resultado);
+                return Ok(carro);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // PUT api/<CarroController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Carro carro)
+        public async Task<IActionResult> Put(int id, [FromBody] Carro carro)
         {
-            var carroExistente = _dbContext.Carros.Where(x => (x.Placa == carro.Placa) && x.Id != id).Any();
-            if (carroExistente)
-                return BadRequest("Placa já existente.");
+            try
+            {
+                carro = await _service.Update(carro);
 
-            var carroDb = _dbContext.Carros.FirstOrDefault(x => x.Id == id);
-
-            if (carroDb == null)
-                return NotFound();
-
-            carroDb.Placa = carro.Placa;
-            carroDb.Passageiros = carro.Passageiros;
-            carroDb.IdMotorista = carro.IdMotorista;
-            carroDb.DataEdicao = DateTime.Now;
-
-            _dbContext.SaveChanges();
-
-            return Ok();
+                return Ok(carro);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // DELETE api/<CarroController>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var carro = _dbContext.Carros.FirstOrDefault(x => x.Id == id);
+            try
+            {
+                var deletado = await _service.Delete(id);
 
-            if (carro == null)
+                if (deletado)
+                {
+                    return NoContent();
+                }
+
                 return NotFound();
-
-            _dbContext.Carros.Remove(carro);
-            _dbContext.SaveChanges();
-
-            return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
