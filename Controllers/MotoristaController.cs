@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TCC_API.Models.Database;
 using TCC_API.Models.Extensions;
+using TCC_API.Services;
 
 namespace TCC_API.Controllers
 {
@@ -10,29 +11,29 @@ namespace TCC_API.Controllers
     [ApiController, Authorize]
     public class MotoristaController : ControllerBase
     {
-        private readonly AppDbContext _dbContext;
+        private readonly MotoristaService _motoristaService;
 
-        public MotoristaController(AppDbContext dbContext)
+        public MotoristaController(MotoristaService motoristaService)
         {
-            _dbContext = dbContext;
+            _motoristaService = motoristaService;
         }
 
         // GET: api/<MotoristaController>
         [HttpGet]
-        public ActionResult Get()
+        public async Task<ActionResult> Get()
         {
-            var user = _dbContext.Motoristas.ToList();
+            var motoristas = await _motoristaService.Get();
 
-            return Ok(user);
+            return Ok(motoristas);
         }
 
         // GET api/<MotoristaController>/5
         [HttpGet("{id}")]
-        public ActionResult Get(long id)
+        public async Task<ActionResult> Get(long id)
         {
             try
             {
-                var motorista = _dbContext.Motoristas.Include(x => x.Usuario).FirstOrDefault(x => x.Id == id);
+                var motorista = await _motoristaService.GetById(id);
 
                 if (motorista == null)
                     return NotFound();
@@ -47,22 +48,13 @@ namespace TCC_API.Controllers
 
         // POST api/<MotoristaController>
         [HttpPost]
-        public ActionResult Post([FromBody] Motorista motorista)
+        public async Task<ActionResult> Post([FromBody] Motorista motorista)
         {
             try
             {
-                var motoristaExistente = _dbContext.Motoristas.Where(x => x.Documento == motorista.Documento).Any();
-                if (motoristaExistente)
-                    return BadRequest();
+                var result = await _motoristaService.Create(motorista);
 
-                motorista.DataNascimento = motorista.DataNascimento.Date;
-                motorista.DataCriacao = DateTime.Now;
-                motorista.DataEdicao = null;
-
-                var resultado = _dbContext.Motoristas.Add(motorista).Entity;
-                _dbContext.SaveChanges();
-
-                return Ok(resultado);
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -72,28 +64,13 @@ namespace TCC_API.Controllers
 
         // PUT api/<MotoristaController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Motorista motorista)
+        public async Task<IActionResult> Put(int id, [FromBody] Motorista motorista)
         {
             try
             {
-                var motoristaExistente = _dbContext.Motoristas.Where(x => (x.Nome == motorista.Documento) && x.Id != id).Any();
-                if (motoristaExistente)
-                    return BadRequest("Documento já cadastrado.");
+                var result = await _motoristaService.Update(motorista);
 
-                var motoristaDb = _dbContext.Motoristas.FirstOrDefault(x => x.Id == id);
-
-                if (motoristaDb == null)
-                    return NotFound("Motorista não encontrado.");
-
-                motoristaDb.Documento = motorista.Documento;
-                motoristaDb.Nome = motorista.Nome;
-                motoristaDb.DataNascimento = motorista.DataNascimento.Date;
-                motoristaDb.IdUsuario = motorista.IdUsuario;
-                motoristaDb.DataEdicao = DateTime.Now;
-
-                _dbContext.SaveChanges();
-
-                return Ok();
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -103,17 +80,14 @@ namespace TCC_API.Controllers
 
         // DELETE api/<MotoristaController>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                var motorista = _dbContext.Motoristas.FirstOrDefault(x => x.Id == id);
+                var result = await _motoristaService.Delete(id);
 
-                if (motorista == null)
+                if (!result)
                     return NotFound();
-
-                _dbContext.Motoristas.Remove(motorista);
-                _dbContext.SaveChanges();
 
                 return Ok();
             }

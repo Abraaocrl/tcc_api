@@ -17,6 +17,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<CarroRepository>();
 builder.Services.AddScoped<CarroService>();
 
+builder.Services.AddScoped<MotoristaRepository>();
+builder.Services.AddScoped<MotoristaService>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

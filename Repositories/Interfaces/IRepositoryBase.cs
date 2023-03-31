@@ -2,7 +2,7 @@
 {
     public interface IRepositoryBase<T> where T : Models.Database.BaseTable
     {
-        public Task<List<T>> Get();
+        public Task<IEnumerable<T>> Get();
 
         public Task<T> GetById(long id);
 

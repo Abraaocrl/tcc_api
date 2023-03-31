@@ -31,7 +31,7 @@ namespace TCC_API.Services
             return await _repository.Delete(id);
         }
 
-        public async Task<List<Carro>> Get()
+        public async Task<IEnumerable<Carro>> Get()
         {
             var carros = await _repository.Get();
 

@@ -62,8 +62,8 @@ namespace TCC_API.Controllers
         }
 
         // PUT api/<CarroController>/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Carro carro)
+        [HttpPut()]
+        public async Task<IActionResult> Put([FromBody] Carro carro)
         {
             try
             {

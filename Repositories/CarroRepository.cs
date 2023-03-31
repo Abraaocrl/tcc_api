@@ -37,7 +37,7 @@ namespace TCC_API.Repositories
             return true;
         }
 
-        public async Task<List<Carro>> Get()
+        public async Task<IEnumerable<Carro>> Get()
         {
             return await _dbContext.Carros.Include(x => x.Motorista).ToListAsync();
         }
