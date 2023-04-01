@@ -15,19 +15,15 @@ namespace TCC_API.Controllers
             _dbContext= dbContext;
         }
 
-        //[HttpGet("{idCidadeOrigem}/{idCidadeDestino}")]
-        //public ActionResult GetRotaDeOrigemADestino(long idCidadeOrigem, long idCidadeDestino)
-        //{
-        //    var rotaId = _dbContext.Rotas.FirstOrDefault(x => x.Paradas.Select(y => y.IdCidade).Contains(idCidadeOrigem) && x.Paradas.Select(y => y.IdCidade).Contains(idCidadeDestino)).Select(x => x.Id);
+        [HttpGet("{idCidadeOrigem}/{idCidadeDestino}")]
+        public ActionResult GetRotaDeOrigemADestino(long idCidadeOrigem, long idCidadeDestino)
+        {
+            var rotas = _dbContext.Rotas.Include(x=> x.Paradas).Where(x => x.Paradas.Any(y => idCidadeDestino == y.IdCidade) && x.Paradas.Any(y => idCidadeOrigem == y.IdCidade)).ToList();
 
-        //    var rotaParadaOrigem = _dbContext.RotaParadas.Include(x => x.Horarios).FirstOrDefault(x => x.IdRota == rotaId && x.IdCidade == idCidadeOrigem);
-        //    var rotaParadaDestino = _dbContext.RotaParadas.Include(x => x.Horarios).FirstOrDefault(x => x.IdRota == rotaId && x.IdCidade == idCidadeDestino);
-
-        //    return Ok(new
-        //    {
-        //        origem= rotaParadaOrigem,
-        //        destino= rotaParadaDestino
-        //    });
-        //}
+            return Ok(new
+            {
+                rotas
+            });
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TCC_API.Models.Database;
@@ -11,9 +12,10 @@ using TCC_API.Models.Database;
 namespace TCC_API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230401230535_MoverColunaIdCarroDeParadaParaRota")]
+    partial class MoverColunaIdCarroDeParadaParaRota
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,7 +58,7 @@ namespace TCC_API.Migrations
                         new
                         {
                             Id = 1L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1908),
                             IdMotorista = 1L,
                             Passageiros = 10,
                             Placa = "HWI8828"
@@ -93,175 +95,175 @@ namespace TCC_API.Migrations
                         new
                         {
                             Id = 1L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1744),
                             Estado = "CE",
                             Nome = "Fortaleza"
                         },
                         new
                         {
                             Id = 2L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1753),
                             Estado = "CE",
                             Nome = "Aracati"
                         },
                         new
                         {
                             Id = 3L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1754),
                             Estado = "CE",
                             Nome = "Aquiraz"
                         },
                         new
                         {
                             Id = 4L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1755),
                             Estado = "CE",
                             Nome = "Acaraú"
                         },
                         new
                         {
                             Id = 5L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1756),
                             Estado = "CE",
                             Nome = "Viçosa do Ceará"
                         },
                         new
                         {
                             Id = 6L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1757),
                             Estado = "CE",
                             Nome = "Antonina do Norte"
                         },
                         new
                         {
                             Id = 7L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1758),
                             Estado = "CE",
                             Nome = "Abaiara"
                         },
                         new
                         {
                             Id = 8L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1759),
                             Estado = "CE",
                             Nome = "Acarape"
                         },
                         new
                         {
                             Id = 9L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1760),
                             Estado = "CE",
                             Nome = "Sobral"
                         },
                         new
                         {
                             Id = 10L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1761),
                             Estado = "CE",
                             Nome = "Crato"
                         },
                         new
                         {
                             Id = 11L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1762),
                             Estado = "CE",
                             Nome = "Juazeiro do Norte"
                         },
                         new
                         {
                             Id = 12L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1763),
                             Estado = "CE",
                             Nome = "Itapipoca"
                         },
                         new
                         {
                             Id = 13L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1764),
                             Estado = "CE",
                             Nome = "Canindé"
                         },
                         new
                         {
                             Id = 14L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1765),
                             Estado = "CE",
                             Nome = "Massapê"
                         },
                         new
                         {
                             Id = 15L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1766),
                             Estado = "CE",
                             Nome = "Martinópole"
                         },
                         new
                         {
                             Id = 16L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1767),
                             Estado = "CE",
                             Nome = "Granja"
                         },
                         new
                         {
                             Id = 17L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1768),
                             Estado = "CE",
                             Nome = "Uruoca"
                         },
                         new
                         {
                             Id = 18L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1769),
                             Estado = "CE",
                             Nome = "Senador Sá"
                         },
                         new
                         {
                             Id = 19L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1770),
                             Estado = "CE",
                             Nome = "Tianguá"
                         },
                         new
                         {
                             Id = 20L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1771),
                             Estado = "CE",
                             Nome = "Frecheirinha"
                         },
                         new
                         {
                             Id = 21L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1772),
                             Estado = "CE",
                             Nome = "São Benedito"
                         },
                         new
                         {
                             Id = 22L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1773),
                             Estado = "CE",
                             Nome = "Jijoca"
                         },
                         new
                         {
                             Id = 23L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1774),
                             Estado = "CE",
                             Nome = "Cruz"
                         },
                         new
                         {
                             Id = 24L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1775),
                             Estado = "CE",
                             Nome = "Meruoca"
                         },
                         new
                         {
                             Id = 25L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1776),
                             Estado = "CE",
                             Nome = "Camocim"
                         });
@@ -305,7 +307,7 @@ namespace TCC_API.Migrations
                         new
                         {
                             Id = 1L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1892),
                             DataNascimento = new DateTime(1998, 11, 27, 0, 0, 0, 0, DateTimeKind.Utc),
                             Documento = "123.123.123-12",
                             IdUsuario = 1L,
@@ -484,7 +486,7 @@ namespace TCC_API.Migrations
                         new
                         {
                             Id = 1L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DataCriacao = new DateTime(2023, 4, 1, 20, 5, 35, 405, DateTimeKind.Utc).AddTicks(1878),
                             Email = "abraaocrl@email.com.br",
                             Nome = "Abraão",
                             Senha = "827CCB0EEA8A706C4C34A16891F84E7B",

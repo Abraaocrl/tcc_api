@@ -61,9 +61,9 @@ namespace TCC_API.Controllers
         {
             try
             {
-                var paradaExistente = _dbContext.RotaParadas.FirstOrDefault(x => (x.Latitude == rotaParada.Latitude && x.Longitude == rotaParada.Longitude && x.IdCarro == rotaParada.IdCarro) && x.Id != rotaParada.Id);
+                var paradaExistente = _dbContext.RotaParadas.FirstOrDefault(x => (x.Latitude == rotaParada.Latitude && x.Longitude == rotaParada.Longitude && x.IdRota == rotaParada.IdRota) && x.Id != rotaParada.Id);
                 if (paradaExistente != null)
-                    throw new Exception("Parada já cadastrada na localização para o carro.");
+                    throw new Exception("Parada já cadastrada na localização para a rota.");
 
                 rotaParada.DataCriacao = DateTime.Now;
                 rotaParada.DataEdicao = null;
@@ -85,15 +85,14 @@ namespace TCC_API.Controllers
         {
             try
             {
-                var paradaExistente = _dbContext.RotaParadas.FirstOrDefault(x => (x.Latitude == rotaParada.Latitude && x.Longitude == rotaParada.Longitude && x.IdCarro == rotaParada.IdCarro) && x.Id != id);
+                var paradaExistente = _dbContext.RotaParadas.FirstOrDefault(x => (x.Latitude == rotaParada.Latitude && x.Longitude == rotaParada.Longitude && x.IdRota == rotaParada.IdRota) && x.Id != id);
                 if (paradaExistente != null)
-                    throw new Exception("Parada já cadastrada na localização para o carro.");
+                    throw new Exception("Parada já cadastrada na localização para a rota.");
 
                 var rotaParadaDb = _dbContext.RotaParadas.FirstOrDefault(x => x.Id == id);
                 if (rotaParadaDb == null)
                     return NotFound("Parada não encontrada.");
 
-                rotaParadaDb.IdCarro = rotaParada.IdCarro;
                 rotaParadaDb.IdCidade = rotaParada.IdCidade;
                 rotaParadaDb.Latitude = rotaParada.Latitude;
                 rotaParadaDb.Longitude = rotaParada.Longitude;
