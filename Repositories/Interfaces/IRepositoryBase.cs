@@ -1,6 +1,6 @@
 ﻿namespace TCC_API.Repositories.Interfaces
 {
-    public interface IRepositoryBase<T> where T : Models.Database.BaseTable
+    public interface IRepositoryBase<T, TDto> where T : Models.Database.BaseTable
     {
         public Task<IEnumerable<T>> Get();
 

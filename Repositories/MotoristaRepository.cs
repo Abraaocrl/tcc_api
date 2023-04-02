@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Mapster;
+using Microsoft.EntityFrameworkCore;
 using TCC_API.Models.Database;
 using TCC_API.Repositories.Interfaces;
 
@@ -22,18 +23,12 @@ namespace TCC_API.Repositories
         {
             var motorista = await _dbContext.Motoristas.Include(x => x.Usuario).FirstOrDefaultAsync(x => x.Id == id);
 
-            if (motorista == null)
-                throw new Exception();
-
             return motorista;
         }
 
         public async Task<Motorista> GetByDocumento(string documento)
         {
             var motorista = await _dbContext.Motoristas.Include(x => x.Usuario).FirstOrDefaultAsync(x => x.Documento == documento);
-
-            if (motorista == null)
-                throw new Exception();
 
             return motorista;
         }
@@ -65,10 +60,8 @@ namespace TCC_API.Repositories
             if (motoristaDb == null)
                 throw new ArgumentException("Motorista não encontrado.");
 
-            motoristaDb.Documento = motorista.Documento;
-            motoristaDb.Nome = motorista.Nome;
-            motoristaDb.DataNascimento = motorista.DataNascimento.Date;
-            motoristaDb.IdUsuario = motorista.IdUsuario;
+            motoristaDb = motorista.Adapt<Motorista>();
+
             motoristaDb.DataEdicao = DateTime.Now;
 
             await _dbContext.SaveChangesAsync();

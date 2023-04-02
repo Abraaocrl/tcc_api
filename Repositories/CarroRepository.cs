@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Mapster;
+using Microsoft.EntityFrameworkCore;
 using TCC_API.Models.Database;
 using TCC_API.Repositories.Interfaces;
 
@@ -46,18 +47,12 @@ namespace TCC_API.Repositories
         {
             var carro = await _dbContext.Carros.FirstOrDefaultAsync(x => x.Id == id);
 
-            if (carro == null)
-                throw new Exception();
-
             return carro;
         }
 
         public async Task<Carro> GetByPlaca(string placa)
         {
             var carro = await _dbContext.Carros.FirstOrDefaultAsync(x => x.Placa == placa);
-
-            if (carro == null)
-                throw new Exception();
 
             return carro;
         }
@@ -66,9 +61,8 @@ namespace TCC_API.Repositories
         {
             var carroDb = await this.GetById(model.Id);
 
-            carroDb.Placa = model.Placa;
-            carroDb.Passageiros = model.Passageiros;
-            carroDb.IdMotorista = model.IdMotorista;
+            carroDb = model.Adapt<Carro>();
+
             carroDb.DataEdicao = DateTime.Now;
 
             await _dbContext.SaveChangesAsync();
