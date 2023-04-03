@@ -20,6 +20,9 @@ builder.Services.AddScoped<CarroService>();
 builder.Services.AddScoped<MotoristaRepository>();
 builder.Services.AddScoped<MotoristaService>();
 
+builder.Services.AddScoped<RotaParadaRepository>();
+builder.Services.AddScoped<RotaParadaService>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
