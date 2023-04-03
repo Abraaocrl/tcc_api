@@ -35,11 +35,6 @@ namespace TCC_API.Repositories
 
         public async Task<Motorista> Create(Motorista motorista)
         {
-            var motoristaExistente = await GetByDocumento(motorista.Documento);
-            if (motoristaExistente != null)
-                throw new ArgumentException("Documento já cadastrado.");
-
-            motorista.DataNascimento = motorista.DataNascimento.Date;
             motorista.DataCriacao = DateTime.Now;
             motorista.DataEdicao = null;
 
@@ -51,10 +46,6 @@ namespace TCC_API.Repositories
 
         public async Task<Motorista> Update(Motorista motorista)
         {
-            var motoristaExistente = await GetByDocumento(motorista.Documento);
-            if (motoristaExistente.Id != motorista.Id)
-                throw new ArgumentException("Documento já cadastrado.");
-
             var motoristaDb = await GetById(motorista.Id);
 
             if (motoristaDb == null)

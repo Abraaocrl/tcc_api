@@ -26,11 +26,21 @@ namespace TCC_API.Services
 
         public async Task<Motorista> Create(Motorista motorista)
         {
+            var motoristaExistente = await _motoristaRepository.GetByDocumento(motorista.Documento);
+            if (motoristaExistente != null)
+                throw new ArgumentException("Documento já cadastrado.");
+
+            motorista.DataNascimento = motorista.DataNascimento.Date;
+
             return await _motoristaRepository.Create(motorista);
         }
 
         public async Task<Motorista> Update(Motorista motorista)
         {
+            var motoristaExistente = await _motoristaRepository.GetByDocumento(motorista.Documento);
+            if (motoristaExistente.Id != motorista.Id)
+                throw new ArgumentException("Documento já cadastrado.");
+
             return await _motoristaRepository.Update(motorista);
         }
 

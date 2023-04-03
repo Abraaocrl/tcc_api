@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TCC_API.Models.Database;
+using TCC_API.Services.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,20 +11,20 @@ namespace TCC_API.Controllers
     [ApiController, Authorize]
     public class RotaParadaController : ControllerBase
     {
-        private readonly AppDbContext _dbContext;
+        private readonly IServiceBase<RotaParada> _rotaParadaService;
 
-        public RotaParadaController(AppDbContext dbContext)
+        public RotaParadaController(IServiceBase<RotaParada> rotaParadaService)
         {
-            _dbContext = dbContext;
+            _rotaParadaService = rotaParadaService;
         }
 
         // GET: api/<RotaParadaController>
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             try
             {
-                var rotaParadas = _dbContext.RotaParadas.ToList();
+                var rotaParadas = await _rotaParadaService.Get();
 
                 return Ok(rotaParadas);
             }
@@ -36,11 +37,11 @@ namespace TCC_API.Controllers
 
         // GET api/<RotaParadaController>/5
         [HttpGet("{id}")]
-        public IActionResult Get(long id)
+        public async Task<IActionResult> Get(long id)
         {
             try
             {
-                var rotaParada = _dbContext.RotaParadas.FirstOrDefault(x => x.Id == id);
+                var rotaParada = await _rotaParadaService.GetById(id);
                 if (rotaParada == null)
                 {
                     return NotFound();
@@ -57,19 +58,11 @@ namespace TCC_API.Controllers
 
         // POST api/<RotaParadaController>
         [HttpPost]
-        public IActionResult Post([FromBody] RotaParada rotaParada)
+        public async Task<IActionResult> Post([FromBody] RotaParada rotaParada)
         {
             try
             {
-                var paradaExistente = _dbContext.RotaParadas.FirstOrDefault(x => (x.Latitude == rotaParada.Latitude && x.Longitude == rotaParada.Longitude && x.IdRota == rotaParada.IdRota) && x.Id != rotaParada.Id);
-                if (paradaExistente != null)
-                    throw new Exception("Parada já cadastrada na localização para a rota.");
-
-                rotaParada.DataCriacao = DateTime.Now;
-                rotaParada.DataEdicao = null;
-
-                var resultado = _dbContext.RotaParadas.Add(rotaParada).Entity;
-                _dbContext.SaveChanges();
+                var resultado = await _rotaParadaService.Create(rotaParada);
 
                 return Ok(resultado);
             }
@@ -81,26 +74,13 @@ namespace TCC_API.Controllers
 
         // PUT api/<RotaParadaController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(long id, [FromBody] RotaParada rotaParada)
+        public async Task<IActionResult> Put(long id, [FromBody] RotaParada rotaParada)
         {
             try
             {
-                var paradaExistente = _dbContext.RotaParadas.FirstOrDefault(x => (x.Latitude == rotaParada.Latitude && x.Longitude == rotaParada.Longitude && x.IdRota == rotaParada.IdRota) && x.Id != id);
-                if (paradaExistente != null)
-                    throw new Exception("Parada já cadastrada na localização para a rota.");
+                var resultado = await _rotaParadaService.Update(rotaParada);
 
-                var rotaParadaDb = _dbContext.RotaParadas.FirstOrDefault(x => x.Id == id);
-                if (rotaParadaDb == null)
-                    return NotFound("Parada não encontrada.");
-
-                rotaParadaDb.IdCidade = rotaParada.IdCidade;
-                rotaParadaDb.Latitude = rotaParada.Latitude;
-                rotaParadaDb.Longitude = rotaParada.Longitude;
-                rotaParadaDb.DataEdicao = DateTime.Now;
-
-                _dbContext.SaveChanges();
-
-                return Ok(rotaParadaDb);
+                return Ok(resultado);
 
             }
             catch (Exception ex)
@@ -111,16 +91,11 @@ namespace TCC_API.Controllers
 
         // DELETE api/<RotaParadaController>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(long id)
+        public async Task<IActionResult> Delete(long id)
         {
             try
             {
-                var rotaParadaDb = _dbContext.RotaParadas.FirstOrDefault(x => x.Id == id);
-                if (rotaParadaDb == null)
-                    return NotFound("Parada não encontrada.");
-
-                _dbContext.RotaParadas.Remove(rotaParadaDb);
-                _dbContext.SaveChanges();
+                await _rotaParadaService.Delete(id);
 
                 return Ok();
             }
