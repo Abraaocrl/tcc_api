@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TCC_API.Models.Database
 {
@@ -8,6 +9,7 @@ namespace TCC_API.Models.Database
 
         [ForeignKey("RotaParada")]
         public long IdRotaParada { get; set; }
+
         public RotaParada? RotaParada { get; set; }
     }
 }

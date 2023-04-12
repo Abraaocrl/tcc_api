@@ -6,7 +6,7 @@ using TCC_API.Services.Interfaces;
 
 namespace TCC_API.Services
 {
-    public class RotaParadaService : IServiceBase<RotaParada>
+    public class RotaParadaService : IRotaParadaService
     {
         private readonly RotaParadaRepository _rotaParadaRepository;
 
@@ -22,6 +22,25 @@ namespace TCC_API.Services
                 throw new Exception("Parada já cadastrada na localização para a rota.");
 
             return await _rotaParadaRepository.Create(rotaParada);
+        }
+
+        public async Task<IEnumerable<RotaParada>> CreateMultiple(IEnumerable<RotaParada> list)
+        {
+            try
+            {
+                List<RotaParada> paradasCriadas = new List<RotaParada>();
+                foreach (var item in list)
+                {
+                    var paradaCriada = await Create(item);
+                    paradasCriadas.Add(paradaCriada);
+                }
+
+                return paradasCriadas;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<bool> Delete(long id)

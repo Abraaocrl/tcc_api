@@ -11,9 +11,9 @@ namespace TCC_API.Controllers
     [ApiController, Authorize]
     public class RotaParadaController : ControllerBase
     {
-        private readonly IServiceBase<RotaParada> _rotaParadaService;
+        private readonly IRotaParadaService _rotaParadaService;
 
-        public RotaParadaController(IServiceBase<RotaParada> rotaParadaService)
+        public RotaParadaController(IRotaParadaService rotaParadaService)
         {
             _rotaParadaService = rotaParadaService;
         }
@@ -63,6 +63,22 @@ namespace TCC_API.Controllers
             try
             {
                 var resultado = await _rotaParadaService.Create(rotaParada);
+
+                return Ok(resultado);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        // POST api/<RotaParadaController>
+        [HttpPost("multiplas")]
+        public async Task<IActionResult> CreateMultiple([FromBody] IEnumerable<RotaParada> rotaParada)
+        {
+            try
+            {
+                var resultado = await _rotaParadaService.CreateMultiple(rotaParada);
 
                 return Ok(resultado);
             }

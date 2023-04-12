@@ -25,10 +25,10 @@ namespace TCC_API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RotaParadaHorario>>> GetRotaParadaHorarios()
         {
-          if (_context.RotaParadaHorarios == null)
-          {
-              return NotFound();
-          }
+            if (_context.RotaParadaHorarios == null)
+            {
+                return NotFound();
+            }
             return await _context.RotaParadaHorarios.ToListAsync();
         }
 
@@ -36,10 +36,10 @@ namespace TCC_API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<RotaParadaHorario>> GetRotaParadaHorario(long id)
         {
-          if (_context.RotaParadaHorarios == null)
-          {
-              return NotFound();
-          }
+            if (_context.RotaParadaHorarios == null)
+            {
+                return NotFound();
+            }
             var rotaParadaHorario = await _context.RotaParadaHorarios.FindAsync(id);
 
             if (rotaParadaHorario == null)
@@ -77,6 +77,7 @@ namespace TCC_API.Controllers
                 return BadRequest();
             }
 
+            rotaParadaHorario.Horario = new DateTime(1, 1, 1, rotaParadaHorario.Horario.Hour, rotaParadaHorario.Horario.Minute, rotaParadaHorario.Horario.Second);
             _context.Entry(rotaParadaHorario).State = EntityState.Modified;
 
             try
@@ -102,15 +103,18 @@ namespace TCC_API.Controllers
         [HttpPost]
         public async Task<ActionResult<RotaParadaHorario>> PostRotaParadaHorario(RotaParadaHorario rotaParadaHorario)
         {
-          if (_context.RotaParadaHorarios == null)
-          {
-              return Problem("Entity set 'AppDbContext.RotaParadaHorarios'  is null.");
-          }
-            if (HorarioJaExisteNaParada(rotaParadaHorario.Horario,rotaParadaHorario.IdRotaParada))
+            if (_context.RotaParadaHorarios == null)
+            {
+                return Problem("Entity set 'AppDbContext.RotaParadaHorarios'  is null.");
+            }
+
+            rotaParadaHorario.Horario = new DateTime(1, 1, 1, rotaParadaHorario.Horario.Hour, rotaParadaHorario.Horario.Minute, rotaParadaHorario.Horario.Second);
+
+            if (HorarioJaExisteNaParada(rotaParadaHorario.Horario, rotaParadaHorario.IdRotaParada))
             {
                 return BadRequest("Horário já cadastrado previamente na parada");
             }
-            
+
             _context.RotaParadaHorarios.Add(rotaParadaHorario);
             await _context.SaveChangesAsync();
 

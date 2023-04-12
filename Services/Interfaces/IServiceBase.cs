@@ -2,14 +2,14 @@
 {
     public interface IServiceBase<T> where T : Models.Database.BaseTable
     {
-        public Task<IEnumerable<T>> Get();
+        Task<IEnumerable<T>> Get();
 
-        public Task<T> GetById(long id);
+        Task<T> GetById(long id);
 
-        public Task<T> Create(T model);
+        Task<T> Create(T model);
 
-        public Task<T> Update(T model);
+        Task<T> Update(T model);
 
-        public Task<bool> Delete(long id);
+        Task<bool> Delete(long id);
     }
 }

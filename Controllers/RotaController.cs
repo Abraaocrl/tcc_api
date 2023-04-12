@@ -16,14 +16,12 @@ namespace TCC_API.Controllers
         }
 
         [HttpGet("{idCidadeOrigem}/{idCidadeDestino}")]
-        public ActionResult GetRotaDeOrigemADestino(long idCidadeOrigem, long idCidadeDestino)
+        public async Task<IActionResult> GetRotaDeOrigemADestino(long idCidadeOrigem, long idCidadeDestino)
         {
-            var rotas = _dbContext.Rotas.Include(x => x.Paradas).Where(x => x.Paradas.Any(y => idCidadeDestino == y.IdCidade) && x.Paradas.Any(y => idCidadeOrigem == y.IdCidade)).ToList();
+            var idParadas = _dbContext.Rotas.Include(x => x.Paradas).Where(x => x.Paradas.Any(y => idCidadeDestino == y.IdCidade) && x.Paradas.Any(y => idCidadeOrigem == y.IdCidade)).SelectMany(x => x.Paradas).Select(x => x.Id);
+            var horarios = await _dbContext.RotaParadaHorarios.AsNoTracking().Include(x => x.RotaParada).ThenInclude(x => x.Cidade).Where(x => idParadas.Contains(x.IdRotaParada)).OrderBy(x => x.Horario).ToListAsync();
 
-            return Ok(new
-            {
-                rotas
-            });
+            return Ok(horarios);
         }
 
         [HttpPost]

@@ -57,6 +57,90 @@ namespace TCC_API.Models.Database
             builder.Entity<Carro>().HasData(
                 new Carro() { Id = 1, IdMotorista = 1, Passageiros = 10, Placa = "HWI8828", DataCriacao = DateTime.MinValue }
                 );
+
+            builder.Entity<Rota>().HasData(
+                new Rota() { Id = 1, IdCarro = 1, DataCriacao = DateTime.MinValue }
+                );
+
+            builder.Entity<RotaParada>().HasData(
+                new RotaParada() { Id = 1, DataCriacao = DateTime.MinValue, IdCidade = 9, IdRota = 1 }
+                );
+
+            builder.Entity<RotaParadaHorario>().HasData(
+                new RotaParadaHorario() { Id = 1, DataCriacao = DateTime.MinValue, Horario = new DateTime(1,1,1,5,0,0),IdRotaParada=1 }
+                );
+
+            builder.Entity<RotaParadaHorario>().HasData(
+                new RotaParadaHorario() { Id = 2, DataCriacao = DateTime.MinValue, Horario = new DateTime(1, 1, 1, 11, 0, 0), IdRotaParada = 1 }
+                );
+
+            builder.Entity<RotaParada>().HasData(
+                new RotaParada() { Id = 2, DataCriacao = DateTime.MinValue, IdCidade = 14, IdRota = 1 }
+                );
+
+            builder.Entity<RotaParadaHorario>().HasData(
+                new RotaParadaHorario() { Id = 3, DataCriacao = DateTime.MinValue, Horario = new DateTime(1, 1, 1, 5, 30, 0), IdRotaParada = 2 }
+                );
+
+            builder.Entity<RotaParadaHorario>().HasData(
+                new RotaParadaHorario() { Id = 4, DataCriacao = DateTime.MinValue, Horario = new DateTime(1, 1, 1, 10, 30, 0), IdRotaParada = 2 }
+                );
+
+            builder.Entity<RotaParada>().HasData(
+                new RotaParada() { Id = 3, DataCriacao = DateTime.MinValue, IdCidade = 18, IdRota = 1 }
+                );
+
+            builder.Entity<RotaParadaHorario>().HasData(
+                new RotaParadaHorario() { Id = 5, DataCriacao = DateTime.MinValue, Horario = new DateTime(1, 1, 1, 6, 0, 0), IdRotaParada = 3 }
+                );
+
+            builder.Entity<RotaParadaHorario>().HasData(
+                new RotaParadaHorario() { Id = 6, DataCriacao = DateTime.MinValue, Horario = new DateTime(1, 1, 1, 10, 0, 0), IdRotaParada = 3 }
+                );
+
+            builder.Entity<RotaParada>().HasData(
+                new RotaParada() { Id = 4, DataCriacao = DateTime.MinValue, IdCidade = 17, IdRota = 1 }
+                );
+
+            builder.Entity<RotaParadaHorario>().HasData(
+               new RotaParadaHorario() { Id = 7, DataCriacao = DateTime.MinValue, Horario = new DateTime(1, 1, 1, 6, 30, 0), IdRotaParada = 4 }
+               );
+
+            builder.Entity<RotaParadaHorario>().HasData(
+                new RotaParadaHorario() { Id = 8, DataCriacao = DateTime.MinValue, Horario = new DateTime(1, 1, 1, 9, 30, 0), IdRotaParada = 4 }
+                );
+
+            builder.Entity<RotaParada>().HasData(
+                new RotaParada() { Id = 5, DataCriacao = DateTime.MinValue, IdCidade = 15, IdRota = 1 }
+                );
+
+            builder.Entity<RotaParadaHorario>().HasData(
+               new RotaParadaHorario() { Id = 9, DataCriacao = DateTime.MinValue, Horario = new DateTime(1, 1, 1, 7, 0, 0), IdRotaParada = 5 }
+               );
+
+            builder.Entity<RotaParadaHorario>().HasData(
+                new RotaParadaHorario() { Id = 10, DataCriacao = DateTime.MinValue, Horario = new DateTime(1, 1, 1, 9, 0, 0), IdRotaParada = 5 }
+                );
+
+            builder.Entity<RotaParada>().HasData(
+                new RotaParada() { Id = 6, DataCriacao = DateTime.MinValue, IdCidade = 16, IdRota = 1 }
+                );
+
+            builder.Entity<RotaParadaHorario>().HasData(
+              new RotaParadaHorario() { Id = 11, DataCriacao = DateTime.MinValue, Horario = new DateTime(1, 1, 1, 7, 30, 0), IdRotaParada = 6 }
+              );
+
+            builder.Entity<RotaParadaHorario>().HasData(
+                new RotaParadaHorario() { Id = 12, DataCriacao = DateTime.MinValue, Horario = new DateTime(1, 1, 1, 8, 30, 0), IdRotaParada = 6 }
+                );
+
+            builder.Entity<RotaParada>().HasData(
+                new RotaParada() { Id = 7, DataCriacao = DateTime.MinValue, IdCidade = 25, IdRota = 1 }
+                );
+
+            builder.Entity<RotaParadaHorario>().HasData(
+                new RotaParadaHorario() { Id = 13, DataCriacao = DateTime.MinValue, Horario = new DateTime(1, 1, 1, 8, 0, 0), IdRotaParada = 7 }
+                );
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
