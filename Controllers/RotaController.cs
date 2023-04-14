@@ -20,8 +20,13 @@ namespace TCC_API.Controllers
         {
             var idParadas = _dbContext.Rotas.Include(x => x.Paradas).Where(x => x.Paradas.Any(y => idCidadeDestino == y.IdCidade) && x.Paradas.Any(y => idCidadeOrigem == y.IdCidade)).SelectMany(x => x.Paradas).Select(x => x.Id);
             var horarios = await _dbContext.RotaParadaHorarios.AsNoTracking().Include(x => x.RotaParada).ThenInclude(x => x.Cidade).Where(x => idParadas.Contains(x.IdRotaParada)).OrderBy(x => x.Horario).ToListAsync();
+            var horariosDiretos = horarios.Where(x => x.RotaParada.IdCidade == idCidadeOrigem || x.RotaParada.IdCidade == idCidadeDestino).OrderBy(x => x.Horario).ToList();
 
-            return Ok(horarios);
+            return Ok(new
+            {
+                RotaCompleta = horarios,
+                RotaDireta = horariosDiretos
+            });
         }
 
         [HttpPost]
