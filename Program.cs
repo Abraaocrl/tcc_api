@@ -15,12 +15,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddScoped<CarroRepository>();
-builder.Services.AddScoped<CarroService>();
-
-builder.Services.AddScoped<MotoristaRepository>();
-builder.Services.AddScoped<MotoristaService>();
-
 builder.Services.AddScoped<RotaParadaRepository>();
 builder.Services.AddScoped<RotaParadaService>();
 

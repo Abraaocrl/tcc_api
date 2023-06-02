@@ -16,7 +16,7 @@ namespace TCC_API.Models.Database
         public Cidade? Cidade { get; set; }
 
         [ForeignKey("Rota")]
-        public long IdRota { get; set; }
+        public long? IdRota { get; set; }
         public Rota? Rota { get; set; }
 
         public virtual ICollection<RotaParadaHorario> Horarios { get; set; }

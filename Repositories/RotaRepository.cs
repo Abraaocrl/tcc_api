@@ -38,7 +38,7 @@ namespace TCC_API.Repositories
 
         public async Task<IEnumerable<Rota>> Get()
         {
-            return await _dbContext.Rotas.Include(x => x.Paradas).ToListAsync();
+            return await _dbContext.Rotas.ToListAsync();
         }
 
         public async Task<Rota> GetById(long id)

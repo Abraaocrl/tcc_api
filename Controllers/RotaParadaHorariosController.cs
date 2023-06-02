@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -119,6 +120,29 @@ namespace TCC_API.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetRotaParadaHorario", new { id = rotaParadaHorario.Id }, rotaParadaHorario);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostMultiplasRotaParadaHorario(List<RotaParadaHorario> rotaParadaHorario)
+        {
+            try
+            {
+                using (var transaction = _context.Database.BeginTransaction())
+                {
+                    foreach (var horario in rotaParadaHorario)
+                    {
+                        var createdRota = await this.PostRotaParadaHorario(horario);
+                    }
+
+                    transaction.Commit();
+                }
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // DELETE: api/RotaParadaHorarios/5

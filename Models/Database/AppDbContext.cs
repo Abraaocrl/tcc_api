@@ -5,8 +5,6 @@ namespace TCC_API.Models.Database
     public class AppDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
-        public DbSet<Motorista> Motoristas { get; set; }
-        public DbSet<Carro> Carros { get; set; }
         public DbSet<Cidade> Cidades { get; set; }
         public DbSet<RotaParada> RotaParadas { get; set; }
         public DbSet<RotaParadaHorario> RotaParadaHorarios { get; set; }
@@ -50,16 +48,8 @@ namespace TCC_API.Models.Database
                 new User() { Nome = "Abraão", Sobrenome = "Costa", Id = 1, Email = "abraaocrl@email.com.br", Username = "abraaocrl", Senha = "827CCB0EEA8A706C4C34A16891F84E7B", DataCriacao = DateTime.MinValue }
                 );
 
-            builder.Entity<Motorista>().HasData(
-                new Motorista() { Id = 1, IdUsuario = 1, DataCriacao = DateTime.MinValue, Nome = "Abraão Costa", Documento = "123.123.123-12", DataNascimento = new DateTime(1998, 11, 27) }
-                );
-
-            builder.Entity<Carro>().HasData(
-                new Carro() { Id = 1, IdMotorista = 1, Passageiros = 10, Placa = "HWI8828", DataCriacao = DateTime.MinValue }
-                );
-
             builder.Entity<Rota>().HasData(
-                new Rota() { Id = 1, IdCarro = 1, DataCriacao = DateTime.MinValue }
+                new Rota() { Id = 1, DataCriacao = DateTime.MinValue }
                 );
 
             builder.Entity<RotaParada>().HasData(
