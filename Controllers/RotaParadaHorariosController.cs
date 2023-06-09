@@ -122,7 +122,7 @@ namespace TCC_API.Controllers
             return CreatedAtAction("GetRotaParadaHorario", new { id = rotaParadaHorario.Id }, rotaParadaHorario);
         }
 
-        [HttpPost]
+        [HttpPost("multiplas")]
         public async Task<IActionResult> PostMultiplasRotaParadaHorario(List<RotaParadaHorario> rotaParadaHorario)
         {
             try

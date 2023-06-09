@@ -16,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddScoped<RotaParadaRepository>();
-builder.Services.AddScoped<RotaParadaService>();
+builder.Services.AddScoped<IRotaParadaService,RotaParadaService>();
 
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);

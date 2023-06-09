@@ -27,6 +27,13 @@ namespace TCC_API.Repositories
             return parada;
         }
 
+        public async Task<IEnumerable<RotaParada>> GetByRotaId(long idRota)
+        {
+            var parada = await _dbContext.RotaParadas.Include(x => x.Cidade).Where(x => x.IdRota == idRota).ToListAsync();
+
+            return parada;
+        }
+
         public async Task<RotaParada> Create(RotaParada rotaParada)
         {
             var result = _dbContext.RotaParadas.Add(rotaParada).Entity;
@@ -68,7 +75,7 @@ namespace TCC_API.Repositories
 
         public bool ExistParada(RotaParada rotaParada)
         {
-            return _dbContext.RotaParadas.Any(x => x.Latitude == rotaParada.Latitude && x.Longitude == rotaParada.Longitude && x.IdRota == rotaParada.IdRota && x.Id != rotaParada.Id);
+            return _dbContext.RotaParadas.Any(x => x.Latitude == rotaParada.Latitude && x.Longitude == rotaParada.Longitude && x.IdRota == rotaParada.IdRota && x.IdCidade == rotaParada.IdCidade && x.Id != rotaParada.Id);
         }
     }
 }

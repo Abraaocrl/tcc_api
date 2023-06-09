@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data.Common;
 using System.Linq;
@@ -20,18 +21,17 @@ namespace TCC_API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Get()
         {
             try
             {
-                var rotas = await _dbContext.Rotas.Where(r => r.Paradas.Any()).ToListAsync();
-
-                var resultado = rotas.Select(r => new RotaListItemDTO()
+                var resultado = await _dbContext.RotaParadas.Include(x => x.Rota).Include(x => x.Cidade).GroupBy(p => p.IdRota).Select(x => new RotaListItemDTO()
                 {
-                    Id = r.Id,
-                    Inicio = r.Paradas.FirstOrDefault(p => p.Id == r.IdRotaParadaOrigem).Cidade.Nome,
-                    Fim = r.Paradas.FirstOrDefault(p => p.Id == r.IdRotaParadaDestino).Cidade.Nome,
-                });
+                    Id = x.Key ?? 0,
+                    Inicio = x.FirstOrDefault(y => y.Rota.IdRotaParadaOrigem == y.Id).Cidade.Nome,
+                    Fim = x.FirstOrDefault(y => y.Rota.IdRotaParadaDestino == y.Id).Cidade.Nome,
+                }).ToListAsync();
 
                 return Ok(resultado);
             }
@@ -41,7 +41,8 @@ namespace TCC_API.Controllers
             }
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> Get(long id)
         {
             try
@@ -100,6 +101,7 @@ namespace TCC_API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Create(Rota rota)
         {
             try
@@ -122,7 +124,68 @@ namespace TCC_API.Controllers
             }
         }
 
+        [HttpPost("setParadaInicial/{idParada}/{idRota}")]
+        [Authorize]
+        public async Task<IActionResult> SetParadaInicial(long idParada, long idRota)
+        {
+            try
+            {
+                var rota = await GetRota(idRota);
+                if(rota == null)
+                    return NotFound("Rota não encontrada");
+
+                var parada = await _dbContext.RotaParadas.FirstOrDefaultAsync(p => p.Id == idParada);
+                if (parada == null)
+                    return NotFound("Parada não encontrada");
+
+                if(parada.IdRota != idRota)
+                {
+                    return BadRequest("Parada não pertence a rota indicada");
+                }
+
+                rota.IdRotaParadaOrigem = idParada;
+                await _dbContext.SaveChangesAsync();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("setParadaFinal/{idParada}/{idRota}")]
+        [Authorize]
+        public async Task<IActionResult> SetParadaFinal(long idParada, long idRota)
+        {
+            try
+            {
+                var rota = await GetRota(idRota);
+                if (rota == null)
+                    return NotFound("Rota não encontrada");
+
+                var parada = await _dbContext.RotaParadas.FirstOrDefaultAsync(p => p.Id == idParada);
+                if (parada == null)
+                    return NotFound("Parada não encontrada");
+
+                if (parada.IdRota != idRota)
+                {
+                    return BadRequest("Parada não pertence a rota indicada");
+                }
+
+                rota.IdRotaParadaDestino = idParada;
+                await _dbContext.SaveChangesAsync();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpDelete]
+        [Authorize]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             try

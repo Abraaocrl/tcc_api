@@ -62,6 +62,11 @@ namespace TCC_API.Services
             return await _rotaParadaRepository.GetById(id);
         }
 
+        public async Task<IEnumerable<RotaParada>> GetParadasRotas(long idRota)
+        {
+            return await _rotaParadaRepository.GetByRotaId(idRota);
+        }
+
         public async Task<RotaParada> Update(RotaParada rotaParada)
         {
             var paradaExistente = _rotaParadaRepository.ExistParada(rotaParada);

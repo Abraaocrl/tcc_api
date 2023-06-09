@@ -56,9 +56,28 @@ namespace TCC_API.Controllers
             }
         }
 
+        // GET api/<RotaParadaController>/5
+        [HttpGet("rota/{idRota}")]
+        public async Task<IActionResult> GetParadasRota(long idRota)
+        {
+            try
+            {
+                var paradas = await _rotaParadaService.GetParadasRotas(idRota);
+                if (paradas == null)
+                    return NotFound();
+
+
+                return Ok(paradas);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         // POST api/<RotaParadaController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] RotaParada rotaParada)
+        public async Task<IActionResult> Create([FromBody] RotaParada rotaParada)
         {
             try
             {
