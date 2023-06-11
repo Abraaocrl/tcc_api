@@ -109,7 +109,7 @@ namespace TCC_API.Controllers
                 var rotaExistente = _dbContext.Rotas.Any(x => x.IdRotaParadaOrigem == rota.IdRotaParadaOrigem);
                 if (rotaExistente)
                 {
-                    throw new Exception("Rota já cadastrada para trajeto e carro selecionados.");
+                    throw new Exception("Rota já cadastrada para trajeto selecionado.");
                 }
 
                 var rotaDb = _dbContext.Rotas.Add(rota);
@@ -184,7 +184,7 @@ namespace TCC_API.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [Authorize]
         public async Task<IActionResult> DeleteAsync(int id)
         {
@@ -201,13 +201,14 @@ namespace TCC_API.Controllers
                 {
                     try
                     {
-                        var idsParadas = rota.Paradas.Select(p => p.Id);
+                        var paradas = _dbContext.RotaParadas.Where(x => x.IdRota == id).ToList();
+                        var idsParadas = paradas.Select(x => x.Id).ToList();
                         var horarios = _dbContext.RotaParadaHorarios.Where(p => idsParadas.Contains(p.IdRotaParada));
                         var precos = _dbContext.RotaPrecos.Where(p => idsParadas.Contains(p.IdRotaParadaOrigem ?? 0) || idsParadas.Contains(p.IdRotaParadaDestino ?? 0));
 
                         _dbContext.RotaPrecos.RemoveRange(precos);
                         _dbContext.RotaParadaHorarios.RemoveRange(horarios);
-                        _dbContext.RotaParadas.RemoveRange(rota.Paradas);
+                        _dbContext.RotaParadas.RemoveRange(paradas);
                         _dbContext.Rotas.Remove(rota);
 
                         await _dbContext.SaveChangesAsync();

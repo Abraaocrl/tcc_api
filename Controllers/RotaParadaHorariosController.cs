@@ -52,7 +52,7 @@ namespace TCC_API.Controllers
         }
 
         // GET: api/RotaParadaHorarios/Parada/5
-        [HttpGet("Parada/{id}")]
+        [HttpGet("Parada/{idRotaParada}")]
         public async Task<ActionResult<List<RotaParadaHorario>>> GetHorariosParada(long idRotaParada)
         {
             if (_context.RotaParadaHorarios == null)
@@ -67,6 +67,27 @@ namespace TCC_API.Controllers
             }
 
             return Ok(rotaParadaHorario);
+        }
+
+        // GET: api/RotaParadaHorarios/Parada/5
+        [HttpGet("Rota/{idRota}")]
+        public async Task<IActionResult> GetHorariosRota(long idRota)
+        {
+            if (_context.RotaParadaHorarios == null)
+            {
+                return NotFound();
+            }
+
+            var idsParadas = await _context.RotaParadas.Where(x => x.IdRota == idRota).Select(x => x.Id).ToListAsync();
+
+            var horarios = _context.RotaParadaHorarios.Where(x => idsParadas.Contains(x.IdRotaParada)).OrderBy(h => h.Horario).ToList().GroupBy(x => x.IdRotaParada);
+
+            if (horarios == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(horarios);
         }
 
         // PUT: api/RotaParadaHorarios/5
@@ -165,6 +186,26 @@ namespace TCC_API.Controllers
             return NoContent();
         }
 
+        // DELETE: api/RotaParadaHorarios/5
+        [HttpDelete("RotaParada/{idRotaParada}")]
+        public async Task<IActionResult> DeleteRotaParadaHorarioDaRota(long idRotaParada)
+        {
+            if (_context.RotaParadaHorarios == null)
+            {
+                return NotFound();
+            }
+            var rotaParadaHorarios = await _context.RotaParadaHorarios.Where(h => h.IdRotaParada == idRotaParada).ToListAsync();
+            if (rotaParadaHorarios == null)
+            {
+                return NotFound();
+            }
+
+            _context.RotaParadaHorarios.RemoveRange(rotaParadaHorarios);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
         private bool RotaParadaHorarioExists(long id)
         {
             return (_context.RotaParadaHorarios?.Any(e => e.Id == id)).GetValueOrDefault();
@@ -172,7 +213,7 @@ namespace TCC_API.Controllers
 
         private bool HorarioJaExisteNaParada(DateTime horario, long idParada)
         {
-            return (_context.RotaParadaHorarios?.Any(e => e.IdRotaParada == idParada && e.Horario.TimeOfDay == horario.TimeOfDay)).GetValueOrDefault();
+            return (_context.RotaParadaHorarios?.Any(e => e.IdRotaParada == idParada && e.Horario == horario)).GetValueOrDefault();
         }
     }
 }
