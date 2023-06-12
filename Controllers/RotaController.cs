@@ -124,6 +124,45 @@ namespace TCC_API.Controllers
             }
         }
 
+        [HttpPost("{idCidade}")]
+        [Authorize]
+        public IActionResult CreateRota(RotaParada paradaInicial)
+        {
+            try
+            {
+                using(var transaction = _dbContext.Database.BeginTransaction())
+                {
+                    paradaInicial.DataCriacao = DateTime.Now;
+
+                    paradaInicial = _dbContext.RotaParadas.Add(paradaInicial).Entity;
+
+                    _dbContext.SaveChanges();
+
+                    var rota = new Rota()
+                    {
+                        IdRotaParadaOrigem = paradaInicial.Id,
+                        DataCriacao = DateTime.Now
+                    };
+
+                    rota = _dbContext.Rotas.Add(rota).Entity;
+
+                    _dbContext.SaveChanges();
+
+                    paradaInicial.IdRota = rota.Id;
+
+                    _dbContext.SaveChanges();
+
+                    transaction.Commit();
+
+                    return Ok(rota.Id);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("setParadaInicial/{idParada}/{idRota}")]
         [Authorize]
         public async Task<IActionResult> SetParadaInicial(long idParada, long idRota)
