@@ -12,8 +12,8 @@ using TCC_API.Models.Database;
 namespace TCC_API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230401230914_DateTimeMinDadosIniciais")]
-    partial class DateTimeMinDadosIniciais
+    [Migration("20230618200549_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,47 +23,6 @@ namespace TCC_API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("TCC_API.Models.Database.Carro", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("DataCriacao")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("DataEdicao")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long>("IdMotorista")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("Passageiros")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Placa")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdMotorista");
-
-                    b.ToTable("Carros");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IdMotorista = 1L,
-                            Passageiros = 10,
-                            Placa = "HWI8828"
-                        });
-                });
 
             modelBuilder.Entity("TCC_API.Models.Database.Cidade", b =>
                 {
@@ -269,52 +228,6 @@ namespace TCC_API.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TCC_API.Models.Database.Motorista", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("DataCriacao")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("DataEdicao")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("DataNascimento")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Documento")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<long>("IdUsuario")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdUsuario");
-
-                    b.ToTable("Motoristas");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DataNascimento = new DateTime(1998, 11, 27, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Documento = "123.123.123-12",
-                            IdUsuario = 1L,
-                            Nome = "Abraão Costa"
-                        });
-                });
-
             modelBuilder.Entity("TCC_API.Models.Database.Rota", b =>
                 {
                     b.Property<long>("Id")
@@ -329,9 +242,6 @@ namespace TCC_API.Migrations
                     b.Property<DateTime?>("DataEdicao")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("IdCarro")
-                        .HasColumnType("bigint");
-
                     b.Property<long?>("IdRotaParadaDestino")
                         .HasColumnType("bigint");
 
@@ -339,8 +249,6 @@ namespace TCC_API.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdCarro");
 
                     b.ToTable("Rotas");
                 });
@@ -362,7 +270,7 @@ namespace TCC_API.Migrations
                     b.Property<long>("IdCidade")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("IdRota")
+                    b.Property<long?>("IdRota")
                         .HasColumnType("bigint");
 
                     b.Property<double>("Latitude")
@@ -420,6 +328,9 @@ namespace TCC_API.Migrations
 
                     b.Property<DateTime?>("DataEdicao")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<double>("Distancia")
+                        .HasColumnType("double precision");
 
                     b.Property<long>("IdRota")
                         .HasColumnType("bigint");
@@ -481,51 +392,6 @@ namespace TCC_API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Email = "abraaocrl@email.com.br",
-                            Nome = "Abraão",
-                            Senha = "827CCB0EEA8A706C4C34A16891F84E7B",
-                            Sobrenome = "Costa",
-                            Username = "abraaocrl"
-                        });
-                });
-
-            modelBuilder.Entity("TCC_API.Models.Database.Carro", b =>
-                {
-                    b.HasOne("TCC_API.Models.Database.Motorista", "Motorista")
-                        .WithMany()
-                        .HasForeignKey("IdMotorista")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Motorista");
-                });
-
-            modelBuilder.Entity("TCC_API.Models.Database.Motorista", b =>
-                {
-                    b.HasOne("TCC_API.Models.Database.User", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("IdUsuario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("TCC_API.Models.Database.Rota", b =>
-                {
-                    b.HasOne("TCC_API.Models.Database.Carro", "Carro")
-                        .WithMany()
-                        .HasForeignKey("IdCarro")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Carro");
                 });
 
             modelBuilder.Entity("TCC_API.Models.Database.RotaParada", b =>
@@ -538,9 +404,7 @@ namespace TCC_API.Migrations
 
                     b.HasOne("TCC_API.Models.Database.Rota", "Rota")
                         .WithMany("Paradas")
-                        .HasForeignKey("IdRota")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdRota");
 
                     b.Navigation("Cidade");
 

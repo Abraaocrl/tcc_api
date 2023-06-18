@@ -249,13 +249,6 @@ namespace TCC_API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Rotas");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        });
                 });
 
             modelBuilder.Entity("TCC_API.Models.Database.RotaParada", b =>
@@ -291,71 +284,6 @@ namespace TCC_API.Migrations
                     b.HasIndex("IdRota");
 
                     b.ToTable("RotaParadas");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IdCidade = 9L,
-                            IdRota = 1L,
-                            Latitude = 0.0,
-                            Longitude = 0.0
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IdCidade = 14L,
-                            IdRota = 1L,
-                            Latitude = 0.0,
-                            Longitude = 0.0
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IdCidade = 18L,
-                            IdRota = 1L,
-                            Latitude = 0.0,
-                            Longitude = 0.0
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IdCidade = 17L,
-                            IdRota = 1L,
-                            Latitude = 0.0,
-                            Longitude = 0.0
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IdCidade = 15L,
-                            IdRota = 1L,
-                            Latitude = 0.0,
-                            Longitude = 0.0
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IdCidade = 16L,
-                            IdRota = 1L,
-                            Latitude = 0.0,
-                            Longitude = 0.0
-                        },
-                        new
-                        {
-                            Id = 7L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IdCidade = 25L,
-                            IdRota = 1L,
-                            Latitude = 0.0,
-                            Longitude = 0.0
-                        });
                 });
 
             modelBuilder.Entity("TCC_API.Models.Database.RotaParadaHorario", b =>
@@ -383,99 +311,6 @@ namespace TCC_API.Migrations
                     b.HasIndex("IdRotaParada");
 
                     b.ToTable("RotaParadaHorarios");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Horario = new DateTime(1, 1, 1, 5, 0, 0, 0, DateTimeKind.Utc),
-                            IdRotaParada = 1L
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Horario = new DateTime(1, 1, 1, 11, 0, 0, 0, DateTimeKind.Utc),
-                            IdRotaParada = 1L
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Horario = new DateTime(1, 1, 1, 5, 30, 0, 0, DateTimeKind.Utc),
-                            IdRotaParada = 2L
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Horario = new DateTime(1, 1, 1, 10, 30, 0, 0, DateTimeKind.Utc),
-                            IdRotaParada = 2L
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Horario = new DateTime(1, 1, 1, 6, 0, 0, 0, DateTimeKind.Utc),
-                            IdRotaParada = 3L
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Horario = new DateTime(1, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
-                            IdRotaParada = 3L
-                        },
-                        new
-                        {
-                            Id = 7L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Horario = new DateTime(1, 1, 1, 6, 30, 0, 0, DateTimeKind.Utc),
-                            IdRotaParada = 4L
-                        },
-                        new
-                        {
-                            Id = 8L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Horario = new DateTime(1, 1, 1, 9, 30, 0, 0, DateTimeKind.Utc),
-                            IdRotaParada = 4L
-                        },
-                        new
-                        {
-                            Id = 9L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Horario = new DateTime(1, 1, 1, 7, 0, 0, 0, DateTimeKind.Utc),
-                            IdRotaParada = 5L
-                        },
-                        new
-                        {
-                            Id = 10L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Horario = new DateTime(1, 1, 1, 9, 0, 0, 0, DateTimeKind.Utc),
-                            IdRotaParada = 5L
-                        },
-                        new
-                        {
-                            Id = 11L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Horario = new DateTime(1, 1, 1, 7, 30, 0, 0, DateTimeKind.Utc),
-                            IdRotaParada = 6L
-                        },
-                        new
-                        {
-                            Id = 12L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Horario = new DateTime(1, 1, 1, 8, 30, 0, 0, DateTimeKind.Utc),
-                            IdRotaParada = 6L
-                        },
-                        new
-                        {
-                            Id = 13L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Horario = new DateTime(1, 1, 1, 8, 0, 0, 0, DateTimeKind.Utc),
-                            IdRotaParada = 7L
-                        });
                 });
 
             modelBuilder.Entity("TCC_API.Models.Database.RotaPreco", b =>
@@ -491,6 +326,9 @@ namespace TCC_API.Migrations
 
                     b.Property<DateTime?>("DataEdicao")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<double>("Distancia")
+                        .HasColumnType("double precision");
 
                     b.Property<long>("IdRota")
                         .HasColumnType("bigint");
@@ -552,18 +390,6 @@ namespace TCC_API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            DataCriacao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Email = "abraaocrl@email.com.br",
-                            Nome = "Abraão",
-                            Senha = "827CCB0EEA8A706C4C34A16891F84E7B",
-                            Sobrenome = "Costa",
-                            Username = "abraaocrl"
-                        });
                 });
 
             modelBuilder.Entity("TCC_API.Models.Database.RotaParada", b =>

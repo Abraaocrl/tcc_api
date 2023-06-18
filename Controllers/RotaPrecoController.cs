@@ -56,6 +56,27 @@ namespace TCC_API.Controllers
         }
 
         // GET api/<RotaPrecoController>/5
+        [HttpGet("Pontos/{idOrigem}/{idDestino}")]
+        public IActionResult GetByOrigemEDestino(long idOrigem,long idDestino)
+        {
+            try
+            {
+                var rotaPreco = _context.RotaPrecos.FirstOrDefault(x => x.IdRotaParadaOrigem == idOrigem && x.IdRotaParadaDestino == idDestino);
+                if (rotaPreco == null)
+                {
+                    return NotFound();
+                }
+
+
+                return Ok(rotaPreco);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        // GET api/<RotaPrecoController>/5
         [HttpGet("Rota/{idRota}")]
         public async Task<ActionResult<IEnumerable<RotaPrecoDTO>>> GetByRota(long idRota)
         {
@@ -90,15 +111,47 @@ namespace TCC_API.Controllers
         {
             try
             {
-                VerificarExistenciaPrecoPost(rotaPreco);
+                var precoExistente = VerificarExistenciaPrecoPost(rotaPreco);
 
                 rotaPreco.DataCriacao = DateTime.Now;
                 rotaPreco.DataEdicao = null;
 
-                var resultado = _context.RotaPrecos.Add(rotaPreco).Entity;
+                if(precoExistente != null)
+                {
+                    rotaPreco.Id = precoExistente.Id;
+                    _context.RotaPrecos.Update(rotaPreco);
+                }
+                else
+                {
+                    rotaPreco = _context.RotaPrecos.Add(rotaPreco).Entity;
+                }
+
+                var rotaReversa = new RotaPreco()
+                {
+                    Id = 0,
+                    IdRota = rotaPreco.IdRota,
+                    IdRotaParadaOrigem = rotaPreco.IdRotaParadaDestino,
+                    IdRotaParadaDestino = rotaPreco.IdRotaParadaOrigem,
+                    Preco = rotaPreco.Preco,
+                    Distancia = rotaPreco.Distancia,
+                    DataCriacao = DateTime.Now
+                };
+
+                var precoReversoExistente = VerificarExistenciaPrecoPost(rotaReversa);
+
+                if (precoReversoExistente != null)
+                {
+                    rotaReversa.Id = precoReversoExistente.Id;
+                    _context.RotaPrecos.Update(rotaReversa);
+                }
+                else
+                {
+                    rotaReversa = _context.RotaPrecos.Add(rotaReversa).Entity;
+                }
+
                 _context.SaveChanges();
 
-                return Ok(resultado);
+                return Ok(rotaReversa);
             }
             catch (Exception ex)
             {
@@ -106,13 +159,12 @@ namespace TCC_API.Controllers
             }
         }
 
-        private void VerificarExistenciaPrecoPost(RotaPreco rotaPreco)
+        private RotaPreco VerificarExistenciaPrecoPost(RotaPreco rotaPreco)
         {
-            var precoExistente = _context.RotaPrecos.FirstOrDefault(x => x.IdRota == rotaPreco.IdRota &&
+            var precoExistente = _context.RotaPrecos.AsNoTracking().FirstOrDefault(x => x.IdRota == rotaPreco.IdRota &&
                                                                         x.IdRotaParadaOrigem == rotaPreco.IdRotaParadaOrigem &&
                                                                         x.IdRotaParadaDestino == rotaPreco.IdRotaParadaDestino);
-            if (precoExistente != null)
-                throw new Exception("Preço já cadastrado para parte da rota em questão.");
+            return precoExistente;
         }
 
         // PUT api/<RotaPrecoController>/5
