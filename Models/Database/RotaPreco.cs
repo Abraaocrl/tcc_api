@@ -14,6 +14,9 @@ namespace TCC_API.Models.Database
         [Required]
         public double Preco { get; set; }
 
+        [Required]
+        public double Distancia { get; set; }
+
         [ForeignKey("RotaParadaOrigem")]
         public long? IdRotaParadaOrigem { get; set; }
 

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TCC_API.Models.Database;
+using TCC_API.Models.DTO;
 
 namespace TCC_API.Controllers
 {
@@ -44,6 +45,35 @@ namespace TCC_API.Controllers
                 {
                     return NotFound();
                 }
+
+
+                return Ok(rotaPreco);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        // GET api/<RotaPrecoController>/5
+        [HttpGet("Rota/{idRota}")]
+        public async Task<ActionResult<IEnumerable<RotaPrecoDTO>>> GetByRota(long idRota)
+        {
+            try
+            {
+                var rotaPreco = await _context.RotaPrecos
+                    .Where(p => p.IdRota == idRota)
+                    .OrderBy(p => p.IdRotaParadaOrigem)
+                    .ThenBy(p => p.IdRotaParadaDestino)
+                    .Select(x => new RotaPrecoDTO()
+                    {
+                        IdRota = x.IdRota,
+                        IdRotaParadaOrigem = x.IdRotaParadaOrigem ?? 0,
+                        IdRotaParadaDestino = x.IdRotaParadaDestino ?? 0,
+                        Preco = x.Preco.ToString("C"),
+                        Distancia = x.Distancia.ToString("G"),
+                    })
+                    .ToListAsync();
 
 
                 return Ok(rotaPreco);
