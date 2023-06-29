@@ -41,6 +41,22 @@ namespace TCC_API.Controllers
             }
         }
 
+        [HttpGet("Contagem")]
+        [Authorize]
+        public async Task<IActionResult> GetCount()
+        {
+            try
+            {
+                var resultado = await _dbContext.Rotas.CountAsync();
+
+                return Ok(resultado);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("{id}")]
         [Authorize]
         public async Task<IActionResult> Get(long id)

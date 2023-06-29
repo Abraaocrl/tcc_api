@@ -57,15 +57,27 @@ namespace TCC_API.Controllers
 
         // GET api/<RotaPrecoController>/5
         [HttpGet("Pontos/{idOrigem}/{idDestino}")]
+        [AllowAnonymous]
         public IActionResult GetByOrigemEDestino(long idOrigem,long idDestino)
         {
             try
             {
-                var rotaPreco = _context.RotaPrecos.FirstOrDefault(x => x.IdRotaParadaOrigem == idOrigem && x.IdRotaParadaDestino == idDestino);
+                var rotaPreco = _context.RotaPrecos
+                    .Include(x => x.RotaParadaOrigem.Cidade)
+                    .Include(x => x.RotaParadaDestino.Cidade)
+                    .Where(x => x.IdRotaParadaOrigem == idOrigem && x.IdRotaParadaDestino == idDestino)
+                    .Select(x => new RotaPrecoComCidadesDTO()
+                    {
+                        Preco = x.Preco.ToString("C"),
+                        Distancia = x.Distancia.ToString("G"),
+                        Destino = x.RotaParadaDestino.Cidade.Nome,
+                        Origem = x.RotaParadaOrigem.Cidade.Nome
+                    }).FirstOrDefault();
                 if (rotaPreco == null)
                 {
                     return NotFound();
                 }
+
 
 
                 return Ok(rotaPreco);
