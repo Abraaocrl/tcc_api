@@ -99,11 +99,12 @@ namespace TCC_API.Controllers
 
                 foreach (var rota in rotas)
                 {
-                    var horariosDiretos = rota.Where(x => x.RotaParada.IdCidade == idCidadeOrigem || x.RotaParada.IdCidade == idCidadeDestino).OrderBy(x => x.RotaParada.IdRota).ThenBy(x => x.Horario).ToList();
+                    var horariosDiretos = rota.Where(x => x.RotaParada.IdCidade == idCidadeOrigem || x.RotaParada.IdCidade == idCidadeDestino).OrderBy(x => x.Horario).ThenBy(x => x.RotaParada.IdRota).ToList();
+                    var rotaCompleta = rota.Where(x => x.RotaParada.IdCidade != null && x.RotaParada.IdCidade != null).OrderBy(x => x.Horario).ThenBy(x => x.RotaParada.IdRota).ToList();
 
                     dadosRotas.Add(new
                     {
-                        RotaCompleta = rota,
+                        RotaCompleta = rotaCompleta,
                         RotaDireta = horariosDiretos
                     });
                 }

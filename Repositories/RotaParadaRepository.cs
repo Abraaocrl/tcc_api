@@ -29,7 +29,7 @@ namespace TCC_API.Repositories
 
         public async Task<IEnumerable<RotaParada>> GetByRotaId(long idRota)
         {
-            var parada = await _dbContext.RotaParadas.Include(x => x.Cidade).Where(x => x.IdRota == idRota).ToListAsync();
+            var parada = await _dbContext.RotaParadas.Include(x => x.Cidade).Where(x => x.IdRota == idRota).OrderBy(x => x.Id).ToListAsync();
 
             return parada;
         }

@@ -59,7 +59,7 @@ namespace TCC_API.Controllers
             {
                 return NotFound();
             }
-            var rotaParadaHorario = await _context.RotaParadaHorarios.Where(x => x.IdRotaParada == idRotaParada).ToListAsync();
+            var rotaParadaHorario = await _context.RotaParadaHorarios.Where(x => x.IdRotaParada == idRotaParada).OrderBy(x => x.Horario).ToListAsync();
 
             if (rotaParadaHorario == null)
             {

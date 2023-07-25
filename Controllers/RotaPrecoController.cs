@@ -68,7 +68,7 @@ namespace TCC_API.Controllers
                     .Where(x => x.IdRotaParadaOrigem == idOrigem && x.IdRotaParadaDestino == idDestino)
                     .Select(x => new RotaPrecoComCidadesDTO()
                     {
-                        Preco = x.Preco.ToString("C"),
+                        Preco = x.Preco.ToString(),
                         Distancia = x.Distancia.ToString("G"),
                         Destino = x.RotaParadaDestino.Cidade.Nome,
                         Origem = x.RotaParadaOrigem.Cidade.Nome

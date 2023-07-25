@@ -17,7 +17,7 @@ namespace TCC_API.Controllers
         [HttpGet]
         public ActionResult Get()
         {
-            var cidades = _dbContext.Cidades.ToList().Select(x => new { x.Id, Nome = $"{x.Nome}/{x.Estado}" });
+            var cidades = _dbContext.Cidades.OrderBy(x => x.Nome).ToList().Select(x => new { x.Id, Nome = $"{x.Nome}/{x.Estado}" });
 
             return Ok(cidades);
         }
