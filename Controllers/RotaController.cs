@@ -31,7 +31,7 @@ namespace TCC_API.Controllers
                     Id = x.Key ?? 0,
                     Inicio = x.FirstOrDefault(y => y.Rota.IdRotaParadaOrigem == y.Id).Cidade.Nome,
                     Fim = x.FirstOrDefault(y => y.Rota.IdRotaParadaDestino == y.Id).Cidade.Nome,
-                }).ToListAsync();
+                }).OrderBy(r => r.Id).ToListAsync();
 
                 return Ok(resultado);
             }

@@ -103,7 +103,7 @@ namespace TCC_API.Controllers
                         IdRota = x.IdRota,
                         IdRotaParadaOrigem = x.IdRotaParadaOrigem ?? 0,
                         IdRotaParadaDestino = x.IdRotaParadaDestino ?? 0,
-                        Preco = x.Preco.ToString("C"),
+                        Preco = x.Preco.ToString(),
                         Distancia = x.Distancia.ToString("G"),
                     })
                     .ToListAsync();
