@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
+using System.Text.RegularExpressions;
 using TCC_API.Models.Database;
 using TCC_API.Models.DTO;
 
@@ -62,14 +64,17 @@ namespace TCC_API.Controllers
         {
             try
             {
+                var specifier = "G";
+                var culture = CultureInfo.CreateSpecificCulture("pt-BR");
+
                 var rotaPreco = _context.RotaPrecos
                     .Include(x => x.RotaParadaOrigem.Cidade)
                     .Include(x => x.RotaParadaDestino.Cidade)
                     .Where(x => x.IdRotaParadaOrigem == idOrigem && x.IdRotaParadaDestino == idDestino)
                     .Select(x => new RotaPrecoComCidadesDTO()
                     {
-                        Preco = x.Preco.ToString(),
-                        Distancia = x.Distancia.ToString("G"),
+                        Preco = x.Preco.ToString(specifier, culture),
+                        Distancia = x.Distancia.ToString(specifier, culture),
                         Destino = x.RotaParadaDestino.Cidade.Nome,
                         Origem = x.RotaParadaOrigem.Cidade.Nome
                     }).FirstOrDefault();
@@ -94,6 +99,9 @@ namespace TCC_API.Controllers
         {
             try
             {
+                var specifier = "G";
+                var culture = CultureInfo.CreateSpecificCulture("pt-BR");
+
                 var rotaPreco = await _context.RotaPrecos
                     .Where(p => p.IdRota == idRota)
                     .OrderBy(p => p.IdRotaParadaOrigem)
@@ -103,8 +111,8 @@ namespace TCC_API.Controllers
                         IdRota = x.IdRota,
                         IdRotaParadaOrigem = x.IdRotaParadaOrigem ?? 0,
                         IdRotaParadaDestino = x.IdRotaParadaDestino ?? 0,
-                        Preco = x.Preco.ToString(),
-                        Distancia = x.Distancia.ToString("G"),
+                        Preco = x.Preco.ToString(specifier, culture),
+                        Distancia = x.Distancia.ToString(specifier, culture),
                     })
                     .ToListAsync();
 
