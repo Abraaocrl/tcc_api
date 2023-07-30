@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TCC_API.Models.Database;
 
 namespace TCC_API.Controllers
@@ -15,11 +16,22 @@ namespace TCC_API.Controllers
         }
 
         [HttpGet]
-        public ActionResult Get()
+        public async Task<IActionResult> GetAsync()
         {
-            var cidades = _dbContext.Cidades.OrderBy(x => x.Nome).ToList().Select(x => new { x.Id, Nome = $"{x.Nome}/{x.Estado}" });
+            var idCidadesEmRotas = await _dbContext.RotaParadas.Select(x => x.IdCidade).Distinct().ToListAsync();
+            var cidades = await _dbContext.Cidades.Where(x => idCidadesEmRotas.Contains(x.Id)).OrderBy(x => x.Nome).Select(x => new { x.Id, Nome = $"{x.Nome}/{x.Estado}" }).ToListAsync();
 
             return Ok(cidades);
+        }
+
+        [HttpGet("possuiCidade/{id}")]
+        public async Task<IActionResult> GetCidadesLigadasPorRotaAsync(int id)
+        {
+            var idRotasComCidade = await _dbContext.RotaParadas.Where(x => x.IdCidade == id).Select(x => x.IdRota).Distinct().ToListAsync();
+            var idCidadesAdjacentes = await _dbContext.RotaParadas.Where(x => idRotasComCidade.Contains(x.IdRota) && x.IdCidade != id).Select(x => x.IdCidade).Distinct().ToListAsync();
+            var cidadesAdjacentes = await _dbContext.Cidades.Where(x => idCidadesAdjacentes.Contains(x.Id)).OrderBy(x => x.Nome).Select(x => new { x.Id, Nome = $"{x.Nome}/{x.Estado}" }).ToListAsync();
+
+            return Ok(cidadesAdjacentes);
         }
     }
 }

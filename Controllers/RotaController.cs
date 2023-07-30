@@ -104,7 +104,6 @@ namespace TCC_API.Controllers
 
                     dadosRotas.Add(new
                     {
-                        RotaCompleta = rotaCompleta,
                         RotaDireta = horariosDiretos
                     });
                 }
