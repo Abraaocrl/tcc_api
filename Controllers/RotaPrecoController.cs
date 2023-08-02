@@ -64,7 +64,7 @@ namespace TCC_API.Controllers
         {
             try
             {
-                var specifier = "G";
+                var specifier = "C";
                 var culture = CultureInfo.CreateSpecificCulture("pt-BR");
 
                 var rotaPreco = _context.RotaPrecos
@@ -74,7 +74,7 @@ namespace TCC_API.Controllers
                     .Select(x => new RotaPrecoComCidadesDTO()
                     {
                         Preco = x.Preco.ToString(specifier, culture),
-                        Distancia = x.Distancia.ToString(specifier, culture),
+                        Distancia = x.Distancia.ToString("G", culture),
                         Destino = x.RotaParadaDestino.Cidade.Nome,
                         Origem = x.RotaParadaOrigem.Cidade.Nome
                     }).FirstOrDefault();
@@ -99,7 +99,7 @@ namespace TCC_API.Controllers
         {
             try
             {
-                var specifier = "G";
+                var specifier = "C";
                 var culture = CultureInfo.CreateSpecificCulture("pt-BR");
 
                 var rotaPreco = await _context.RotaPrecos
@@ -112,7 +112,7 @@ namespace TCC_API.Controllers
                         IdRotaParadaOrigem = x.IdRotaParadaOrigem ?? 0,
                         IdRotaParadaDestino = x.IdRotaParadaDestino ?? 0,
                         Preco = x.Preco.ToString(specifier, culture),
-                        Distancia = x.Distancia.ToString(specifier, culture),
+                        Distancia = x.Distancia.ToString("G", culture),
                     })
                     .ToListAsync();
 
